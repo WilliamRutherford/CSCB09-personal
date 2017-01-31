@@ -65,10 +65,10 @@ int main(int argc, char **argv) {
 	printf("\n");
 	char comparison_hash[MAX_BLOCK_SIZE] = {'\0'}; 
 	xstr_to_hash(comparison_hash, argv[2], block_size);
-	printf("%d", check_hash(hash_val, comparison_hash, block_size));
+	printf("%d\n", check_hash(hash_val, comparison_hash, block_size));
 
     }
-
+    /*
     printf("SOME TEST CASES:\n");
     char tc1a[1] = {'1'};
     char tc1b[1] = {'2'};
@@ -79,6 +79,7 @@ int main(int argc, char **argv) {
     char tc3a[5] = {'1', '2', '5', '5', '5'};
     char tc3b[3] = {'1', '2', '5'};
     printf("different sized arrays: %d \n", check_hash(tc3a, tc3b, 5));
-    return 0;
+    */ 
+   return 0;
 }
 
