@@ -11,6 +11,14 @@
 #include "sys/stat.h"
 #include "unistd.h"
 
+/*
+int perms_from_mode(st_mode mode){
+
+	int *result = malloc(sizeof());
+
+}
+*/
+
 
 /*
  * Returns the FTree rooted at the path fname.
@@ -22,7 +30,7 @@ struct TreeNode *generate_ftree(const char *fname) {
 
     root = malloc(sizeof(struct TreeNode));
 
-    printf("root allocated at %p \n", root);    
+    //printf("root allocated at %p \n", root);    
 
     root->fname = malloc(sizeof(256*sizeof(char)));
     
@@ -30,14 +38,15 @@ struct TreeNode *generate_ftree(const char *fname) {
     root->contents = malloc(sizeof(struct TreeNode*));
 
     root->next = malloc(sizeof(struct TreeNode*));
-
+    
+    root->permissions = malloc(3*sizeof(char));
 
     //printf("file name allocated \n");
 
     //strcpy(root->fname, fname);
     root->fname = fname;
 
-    printf("file name : %s at %p \n", root->fname, root);
+    //printf("file name : %s at %p \n", root->fname, root);
 
     struct stat buf;
     lstat(fname, &buf);
@@ -45,7 +54,8 @@ struct TreeNode *generate_ftree(const char *fname) {
     int is_dir = S_ISDIR(buf.st_mode);
     int is_reg = S_ISREG(buf.st_mode);
     int is_link = S_ISLNK(buf.st_mode);
-    int permissions = buf.st_mode & 0777; 
+    root->permissions = buf.st_mode & 0777; 
+	
 
     if( is_link || is_reg ){
 
@@ -105,13 +115,13 @@ struct TreeNode *generate_ftree(const char *fname) {
 		//printf("move to next node successful \n");
 	    } else {
 
-		printf("current node is null \n");		
+		//printf("current node is null \n");		
 
 	    }
 	    //currfile = readdir(dirstream);
 	} 
 	
-	printf("directory if done \n");
+	//printf("directory if done \n");
     }
     
     //printf("returned node %s at address %p \n", root->fname, root );
@@ -130,10 +140,10 @@ void print_ftree_rec(struct TreeNode *root, int depth) {
     //if file, print.
     if(root->contents == NULL){
 	 print_spaces(depth * 2);
-         printf("%s (perms) \n", root->fname);
+         printf("%s (%lo) \n", root->fname, root->permissions);
     } else { //if directory, go throught contents and recursively call each
 	print_spaces(depth * 2);
-        printf("====  %s (%d) ==== \n",  root->fname, root->permissions);
+        printf("====  %s (%lo) ==== \n",  root->fname, root->permissions);
 	struct TreeNode *currnode;
 	currnode = root->contents;
 	while(currnode->next != NULL){
