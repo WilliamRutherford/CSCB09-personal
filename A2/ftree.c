@@ -25,10 +25,7 @@ int perms_from_mode(st_mode mode){
  */
 struct TreeNode *generate_ftree(const char *fname) {
     // Your implementation here.
-	
-    static char *filepath;
-
-    static char *root_run_dir;    
+	   
 
     /*
 	filepath is the current path. If it is blank, we just call files as normal. if we're at dir depth 1, we must call dir1/file. depth 2 is dir1/dir2/file, etc. 
@@ -41,24 +38,6 @@ struct TreeNode *generate_ftree(const char *fname) {
 
     static char *root_run_dir = malloc(256*sizeof(char));
     */
-
-    static int dirdepth = -1;
-
-    if(dirdepth == -1){
-
-	//printf("first loop is run \n");
-
-	filepath = malloc(256*sizeof(char));
-
-	root_run_dir = malloc(256*sizeof(char));
-	
-	strcpy(root_run_dir, fname);
-
-	//printf("%s \n", root_run_dir);
-
-	dirdepth = 0;
-
-    }
 
     /*   
     if(runnum == 0){
@@ -91,33 +70,18 @@ struct TreeNode *generate_ftree(const char *fname) {
     //strcpy(root->fname, fname);
     strcpy(root->fname, fname);
     
-    char *file_open_path = malloc(256 * sizeof(char));
-    strcpy(file_open_path, filepath);
     //printf("%s is at depth %d \n", file_open_path, dirdepth);	
-    if(dirdepth == 0) {
+
+    //printf("file: %s path: $%s$ file path: %s root: %s depth: %d \n", fname, filepath, file_open_path, root_run_dir, dirdepth);
     
-	strcpy(file_open_path, root_run_dir);
-
-    } else if (strcmp(root_run_dir, ".") == 0 && dirdepth == 1) {
-
-	strcpy(file_open_path, fname);
-
-    } else if (dirdepth > 0) {
-
-	strcat(strcat(file_open_path, "/"), fname);
-
-    }
-
-    printf("file: %s path: $%s$ file path: %s root: %s depth: %d \n", fname, filepath, file_open_path, root_run_dir, dirdepth);
-    
-    //printf("%s, %s \n", filepath, fname);
+    printf("%s :  \n", fname);
 
     //printf("file name : %s at %p \n", root->fname, root);
 
     struct stat buf;
-    if (lstat(file_open_path, &buf) == -1){
+    if (lstat(fname, &buf) == -1){
 
-	printf("lstat: error opening file/dir %s \n", file_open_path);
+	printf("lstat: error opening file/dir %s \n", fname);
 	exit(1);
 
     }
@@ -133,11 +97,11 @@ struct TreeNode *generate_ftree(const char *fname) {
 
 	
 	//printf("opening: %s \n", file_open_path);
-        FILE *file_to_read = fopen( file_open_path, "r" );
+        FILE *file_to_read = fopen( fname, "r" );
 	
 	if(file_to_read == NULL){
 
-	   printf("fopen: error opening file %s at path %s \n", fname, filepath);
+	   printf("fopen: error opening file %s \n", fname);
 	   exit(1);
 
 	} else {
@@ -155,26 +119,24 @@ struct TreeNode *generate_ftree(const char *fname) {
 	//printf("%s created successfully! \n", file_open_path);
 
     } else if ( is_dir ) {
-	
-	if(dirdepth > 1){
-
-	    strcat(strcat(filepath, "/"), fname);	
-
-	} else if(strcmp(filepath, ".") == 0){
-
-	    strcpy(filepath, 0);
-
-	} else if()dirdepth++;
 
 	DIR *dirstream;
-	if(strcmp(fname, ".") == 0){	    
-	    dirstream = opendir(fname);
-	} else {
-            dirstream = opendir(filepath);
+
+	char *currpath = malloc(256*sizeof(char));
+
+	for(int i = 0; i < 256; i++){
+
+	    currpath[i] = 0;
+
 	}
 
+	//printf("currpath: %s fname: %s \n", currpath, fname); 
+	
+
+	dirstream = opendir(fname);
+
 	if(dirstream == NULL){
-		printf("opendir: error opening directory %s at path %s \n", fname, filepath );
+		printf("opendir: error opening directory %s \n", fname);
 		exit(1);
 	}
 
@@ -182,34 +144,62 @@ struct TreeNode *generate_ftree(const char *fname) {
 	struct dirent *currfile = NULL;
 	struct TreeNode *currnode = NULL;
 	struct TreeNode *lastnode = NULL;
+	int not_found = 1;
+	
+	do {
+	    currfile = readdir(dirstream);
+	    if(currfile != NULL){
+	        //printf("first file in dir is: %s \n",currfile->d_name);
+	        if (currfile->d_name[0] == '.') {
 
-	//printf("currfile gotten \n");
+			if(strcmp(currfile->d_name, ".")){
+				
+				not_found = 0;
+					strcpy(currpath, currfile->d_name);
 
-	//printf("%s is dir \n", root->fname);	
+			}
 
-	//contents of root must be set manually
+	        } else {
 
-	currfile = readdir(dirstream);
-	if(currfile != NULL){
-	    //printf("first file in dir is: %s \n",currfile->d_name);
-	    currnode = generate_ftree(currfile->d_name);
+		    strcpy(currpath, fname);
+		    strcat(strcat(currpath, "/"), currfile->d_name);
+		    not_found = 0;
+
+	        }
+
+	    currnode = generate_ftree(currpath);
 	    //printf("first dir recusive call complete");
 	    root->contents = currnode;
-	    //printf("contents of %s is %s \n", root->fname, currfile->d_name);
+	    printf("contents of %s is %s \n", root->fname, currfile->d_name);
 	    lastnode = currnode;
 
-	}
+	    } 
+
+	} while ( not_found == 1 );
+	
 
 	while ( currfile != NULL ){
-	
+
+
 	    currfile = readdir(dirstream);
 
 	    if(currfile == NULL || currfile->d_name[0] == '.'){
 		//printf("node is invisble or null \n", currfile->d_name); 
-		continue;	    
-	    }
 
-	    currnode = generate_ftree(currfile->d_name);
+		continue;	    
+	    
+	    } else if(strcmp(fname, ".") == 0){
+
+		strcpy(currpath, currfile->d_name);
+	
+	    } else {
+
+		strcpy(currpath, fname);
+		strcat(strcat(currpath, "/"), currfile->d_name);	
+
+	    }
+	    printf("fname: %s, currpath %s \n", fname, currpath);
+	    currnode = generate_ftree(currpath);
 	    
 	    //printf("recursive call successful \n");
 
@@ -221,71 +211,12 @@ struct TreeNode *generate_ftree(const char *fname) {
 		lastnode = currnode;
 		
 		//printf("move to next node successful \n");
-
-	    } else {
-
-		//printf("current node is null \n");		
-
 	    }
+	    
 	    lastnode->next = NULL;
-	    
-	    //currfile = readdir(dirstream);
 	} 
-	
-	//printf("directory if done \n");
-	
-	//now we need to remove fname from filepath
-
-	char *slashpos = NULL;
-	slashpos = strrchr(filepath,',');
-
-	    //printf("editing path name %s \n", filepath);
-	    //printf("filepath address: %s   slashpos address: %s", filepath, slashpos);
-	    //printf("slashpos created \n");
-	if( slashpos == NULL ){
-		
-	    if(root_run_dir[0] != '.'){
-
-	        strcpy(filepath, root_run_dir);
-
-	    } else {
-
-		memset(filepath, 0, 256*sizeof(char));
-	
-	    }
-	    dirdepth = 0;
-
-        } else if(dirdepth > 1) {
-	    
-    	    int index = (long)((long)slashpos - (long)filepath + 1);
-	    //printf("index created: %d \n", index);
-	    memset(filepath+index, 0, strlen(filepath)-index);
-	    
-	    }
-	    /*
-	    for(int i = index; i < 256 ; i++){
-		
-		printf("%s", filepath);
-	        if(filepath[i] == 0){
-
-		    break;	
-
-    	        } else {
-    
-	            filepath[i] = 0;
-   
-                }
-            }
-	    */
-	} else {
-
-	    
-
-	}
-	//printf("path name changed back to: %s : \n", filepath);
-
-    
-
+		 
+    }   	 
     return root;
 
 }
