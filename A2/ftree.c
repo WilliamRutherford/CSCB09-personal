@@ -38,8 +38,8 @@ struct TreeNode *generate_ftree(const char *fname) {
     root->contents = malloc(sizeof(struct TreeNode*));
 
     root->next = malloc(sizeof(struct TreeNode*));
-    
-    root->permissions = malloc(3*sizeof(char));
+
+    root->hash = NULL;
 
     //printf("file name allocated \n");
 
@@ -49,7 +49,12 @@ struct TreeNode *generate_ftree(const char *fname) {
     //printf("file name : %s at %p \n", root->fname, root);
 
     struct stat buf;
-    lstat(fname, &buf);
+    if (lstat(fname, &buf) == -1){
+
+	printf("problem opening file/dir \n");
+	exit(1);
+
+    }
 
     int is_dir = S_ISDIR(buf.st_mode);
     int is_reg = S_ISREG(buf.st_mode);
@@ -59,7 +64,7 @@ struct TreeNode *generate_ftree(const char *fname) {
 
     if( is_link || is_reg ){
 
-        FILE *file_to_read = fopen( fname, "rb" );
+        FILE *file_to_read = fopen( fname, "r" );
 	root->hash = hash(file_to_read);
 
 	//printf("hash created successfully \n");
@@ -70,24 +75,31 @@ struct TreeNode *generate_ftree(const char *fname) {
 	fclose(file_to_read);
 
     } else if ( is_dir ) {
-
+	
         DIR *dirstream = opendir(fname);
+	if(dirstream == NULL){
+		printf("error openning directory");
+		exit(1);
+	}
+
     	//struct dirent *currfile = readdir(dirstream);
 	struct dirent *currfile = NULL;
 	struct TreeNode *currnode = NULL;
 	struct TreeNode *lastnode = NULL;
 
 	//printf("currfile gotten \n");
-	
+
+	printf("%s is dir \n", root->fname);	
+
 	//contents of root must be set manually
 
 	currfile = readdir(dirstream);
 	if(currfile != NULL){
-
 	    //printf("first file in dir is: %s \n",currfile->d_name);
 	    currnode = generate_ftree(currfile->d_name);
 	    //printf("first dir recusive call complete");
 	    root->contents = currnode;
+	    //printf("contents of %s is %s \n", root->fname, currfile->d_name);
 	    lastnode = currnode;
 
 	}
@@ -110,21 +122,24 @@ struct TreeNode *generate_ftree(const char *fname) {
 	        //lastnode = currnode;
 		//currnode->next = lastnode;
 		lastnode->next = currnode;
-		lastnode = lastnode->next;
+		lastnode = currnode;
 		
 		//printf("move to next node successful \n");
+
 	    } else {
 
 		//printf("current node is null \n");		
 
 	    }
+	    lastnode->next = NULL;
+	    
 	    //currfile = readdir(dirstream);
 	} 
 	
 	//printf("directory if done \n");
     }
     
-    //printf("returned node %s at address %p \n", root->fname, root );
+    printf("returned node %s at address %p \n", root->fname, root );
     return root;
 }
 
@@ -140,17 +155,21 @@ void print_ftree_rec(struct TreeNode *root, int depth) {
     //if file, print.
     if(root->contents == NULL){
 	 print_spaces(depth * 2);
-         printf("%s (%lo) \n", root->fname, root->permissions);
-    } else { //if directory, go throught contents and recursively call each
+         printf("%s (%o) \n", root->fname, root->permissions);
+    } else if (root->contents != NULL && root->hash == NULL){ //if directory, go throught contents and recursively call each
 	print_spaces(depth * 2);
-        printf("====  %s (%lo) ==== \n",  root->fname, root->permissions);
+        printf("=====  %s (%o) ===== \n",  root->fname, root->permissions);
 	struct TreeNode *currnode;
 	currnode = root->contents;
-	while(currnode->next != NULL){
+	while(currnode != NULL){
 		print_ftree_rec(currnode, depth + 1);
 		currnode = currnode->next;
 	}
 	
+    } else {
+
+	printf("error");
+
     }
 }
 
