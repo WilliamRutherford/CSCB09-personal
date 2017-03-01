@@ -94,31 +94,18 @@ struct TreeNode *generate_ftree(const char *fname) {
     char *file_open_path = malloc(256 * sizeof(char));
     strcpy(file_open_path, filepath);
     //printf("%s is at depth %d \n", file_open_path, dirdepth);	
-    if(strcmp(root_run_dir, ".") != 0) {
-    	if(dirdepth > 0){
-	 
-	    file_open_path = strcat(strcat(file_open_path, "/"), fname);
-    	
-	} else {
+    if(dirdepth == 0) {
+    
+	strcpy(file_open_path, root_run_dir);
 
-	    file_open_path = strcat(file_open_path, fname);
+    } else if (strcmp(root_run_dir, ".") == 0 && dirdepth == 1) {
 
-	}
+	strcpy(file_open_path, fname);
 
-    } else {
-        if(dirdepth > 1){
+    } else if (dirdepth > 0) {
 
-	    file_open_path = strcat(strcat(file_open_path, "/"), fname);
+	strcat(strcat(file_open_path, "/"), fname);
 
-	} else if(dirdepth == 1){
-       
-	    file_open_path = strcat(file_open_path, fname);
-	
-	} else {
-
-	    strcpy(file_open_path, fname);
-
-	}
     }
 
     printf("file: %s path: $%s$ file path: %s root: %s depth: %d \n", fname, filepath, file_open_path, root_run_dir, dirdepth);
@@ -173,11 +160,11 @@ struct TreeNode *generate_ftree(const char *fname) {
 
 	    strcat(strcat(filepath, "/"), fname);	
 
-	} else if(strcmp(fname, ".") != 0){
+	} else if(strcmp(filepath, ".") == 0){
 
-	    strcat(filepath, fname);
+	    strcpy(filepath, 0);
 
-	} dirdepth++;
+	} else if()dirdepth++;
 
 	DIR *dirstream;
 	if(strcmp(fname, ".") == 0){	    
