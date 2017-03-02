@@ -186,7 +186,7 @@ struct TreeNode *generate_ftree(const char *fname) {
     } else if ( is_dir ) {
 	
 
-	char *dir_open_path = malloc(256*sizeof(char));
+	//char *dir_open_path = malloc(256*sizeof(char));
 
 	DIR *dirstream;  
 	dirstream = opendir(file_open_path);
