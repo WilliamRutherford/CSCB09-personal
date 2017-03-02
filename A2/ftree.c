@@ -329,7 +329,9 @@ void print_ftree_rec(struct TreeNode *root, int depth) {
 	
 	while(currnode != NULL){
 		print_ftree_rec(currnode, depth + 1);
-		currnode = currnode->next;
+		if(currnode->next != NULL){
+		    currnode = currnode->next;
+		}
 	}
 	
     } else {
