@@ -19,13 +19,43 @@ int perms_from_mode(st_mode mode){
 }
 */
 
+void show_hash(char *hash_val, long block_size) {
+    for(int i = 0; i < block_size; i++) {
+        printf("%.2hhx ", hash_val[i]);
+    }
+    printf("\n");
+}
+
+
+void file_in_dir(char *result, char *dir, char *fname){
+
+    printf("finding path of %s in %s \n", dir, fname);
+
+    if(strcmp(dir, ".") == 0 || strlen(dir) == 0){
+
+	strcpy(result, fname);
+
+    } else {
+
+	strcpy(result, dir);
+	strcat(strcat(result, "/"), fname);
+
+    }
+
+    printf("result was %s \n", result);
+
+}
+
 
 /*
  * Returns the FTree rooted at the path fname.
  */
 struct TreeNode *generate_ftree(const char *fname) {
     // Your implementation here.
-	   
+	
+    static char *filepath;
+
+    static char *root_run_dir;    
 
     /*
 	filepath is the current path. If it is blank, we just call files as normal. if we're at dir depth 1, we must call dir1/file. depth 2 is dir1/dir2/file, etc. 
@@ -38,6 +68,24 @@ struct TreeNode *generate_ftree(const char *fname) {
 
     static char *root_run_dir = malloc(256*sizeof(char));
     */
+
+    static int dirdepth = -1;
+
+    if(dirdepth == -1){
+
+	//printf("first loop is run \n");
+
+	filepath = malloc(256*sizeof(char));
+
+	root_run_dir = malloc(256*sizeof(char));
+	
+	strcpy(root_run_dir, fname);
+
+	//printf("%s \n", root_run_dir);
+
+	dirdepth = 0;
+
+    }
 
     /*   
     if(runnum == 0){
@@ -70,18 +118,34 @@ struct TreeNode *generate_ftree(const char *fname) {
     //strcpy(root->fname, fname);
     strcpy(root->fname, fname);
     
-    //printf("%s is at depth %d \n", file_open_path, dirdepth);	
+    char *file_open_path = malloc(256 * sizeof(char));
 
-    //printf("file: %s path: $%s$ file path: %s root: %s depth: %d \n", fname, filepath, file_open_path, root_run_dir, dirdepth);
+    //printf("%s is at depth %d \n", file_open_path, dirdepth);	
     
-    printf("%s :  \n", fname);
+    //file_open_path should be the path to the file. filepath is the path to it's parent
+
+    if(strlen(filepath) == 0 || strcmp(filepath, ".") == 0){
+
+	strcpy(file_open_path, fname);
+
+    }  else {
+
+	strcpy(file_open_path, filepath);
+	strcat(strcat(file_open_path, "/"), fname);
+
+    }
+
+
+    printf("file: %s    path: $%s$    file path: %s \n", fname, filepath, file_open_path);
+   
+    //printf("%s, %s \n", filepath, fname);
 
     //printf("file name : %s at %p \n", root->fname, root);
 
     struct stat buf;
-    if (lstat(fname, &buf) == -1){
+    if (lstat(file_open_path, &buf) == -1){
 
-	printf("lstat: error opening file/dir %s \n", fname);
+	printf("lstat: error opening file/dir %s \n", file_open_path);
 	exit(1);
 
     }
@@ -97,16 +161,17 @@ struct TreeNode *generate_ftree(const char *fname) {
 
 	
 	//printf("opening: %s \n", file_open_path);
-        FILE *file_to_read = fopen( fname, "r" );
+        FILE *file_to_read = fopen( file_open_path, "r" );
 	
 	if(file_to_read == NULL){
 
-	   printf("fopen: error opening file %s \n", fname);
+	   printf("fopen: error opening file %s at path %s \n", fname, filepath);
 	   exit(1);
 
 	} else {
 	 
 	   root->hash = hash(file_to_read);
+	   //printf("hash: %s \n", root->hash);
 	
 	}
 	//printf("hash created successfully \n");
@@ -119,104 +184,114 @@ struct TreeNode *generate_ftree(const char *fname) {
 	//printf("%s created successfully! \n", file_open_path);
 
     } else if ( is_dir ) {
-
-	DIR *dirstream;
-
-	char *currpath = malloc(256*sizeof(char));
-
-	for(int i = 0; i < 256; i++){
-
-	    currpath[i] = 0;
-
-	}
-
-	//printf("currpath: %s fname: %s \n", currpath, fname); 
 	
 
-	dirstream = opendir(fname);
+	char *dir_open_path = malloc(256*sizeof(char));
+
+	DIR *dirstream;  
+	dirstream = opendir(file_open_path);
 
 	if(dirstream == NULL){
-		printf("opendir: error opening directory %s \n", fname);
+		printf("opendir: error opening directory %s at path %s \n", fname, filepath );
 		exit(1);
 	}
+
+	strcpy(filepath, file_open_path);
+
+	//strcpy(filepath, file_open_path);
 
     	//struct dirent *currfile = readdir(dirstream);
 	struct dirent *currfile = NULL;
 	struct TreeNode *currnode = NULL;
 	struct TreeNode *lastnode = NULL;
-	int not_found = 1;
+
+	//printf("currfile gotten \n");
+
+	//printf("%s is dir \n", root->fname);	
+
+	//contents of root must be set manually
 	
-	do {
-	    currfile = readdir(dirstream);
-	    if(currfile != NULL){
-	        //printf("first file in dir is: %s \n",currfile->d_name);
-	        if (currfile->d_name[0] == '.') {
 
-			if(strcmp(currfile->d_name, ".")){
-				
-				not_found = 0;
-					strcpy(currpath, currfile->d_name);
 
-			}
+	do{
 
-	        } else {
+   	    currfile = readdir(dirstream);
 
-		    strcpy(currpath, fname);
-		    strcat(strcat(currpath, "/"), currfile->d_name);
-		    not_found = 0;
+	} while (currfile != NULL && currfile->d_name[0] == '.');
 
-	        }
-
-	    currnode = generate_ftree(currpath);
+	if(currfile != NULL){
+	    //printf("first file in dir is: %s \n",currfile->d_name);
+	    //file_in_dir(dir_open_path, filepath, currfile->d_name);
+	    currnode = generate_ftree(currfile->d_name);
 	    //printf("first dir recusive call complete");
 	    root->contents = currnode;
-	    printf("contents of %s is %s \n", root->fname, currfile->d_name);
+	    //printf("contents of %s is %s \n", root->fname, currfile->d_name);
 	    lastnode = currnode;
 
-	    } 
-
-	} while ( not_found == 1 );
-	
+	}
 
 	while ( currfile != NULL ){
-
-
+	
 	    currfile = readdir(dirstream);
 
-	    if(currfile == NULL || currfile->d_name[0] == '.'){
-		//printf("node is invisble or null \n", currfile->d_name); 
-
+	    if(currfile == NULL || currfile->d_name[0] == '.' || strcmp(currfile->d_name, "..") == 0){
+		//printf("node is invisble or null \n"); 
 		continue;	    
-	    
-	    } else if(strcmp(fname, ".") == 0){
-
-		strcpy(currpath, currfile->d_name);
-	
-	    } else {
-
-		strcpy(currpath, fname);
-		strcat(strcat(currpath, "/"), currfile->d_name);	
-
 	    }
-	    printf("fname: %s, currpath %s \n", fname, currpath);
-	    currnode = generate_ftree(currpath);
+	    //file_in_dir(dir_open_path, filepath, currfile->d_name);
+	    currnode = generate_ftree(currfile->d_name);
 	    
 	    //printf("recursive call successful \n");
 
 	    if(currnode != NULL){
 		//printf("node isn't null \n");
-	        //lastnode = currnode;
-		//currnode->next = lastnode;
 		lastnode->next = currnode;
 		lastnode = currnode;
-		
-		//printf("move to next node successful \n");
+
+	    } else {
+
+		//printf("current node is null \n");		
+
 	    }
-	    
 	    lastnode->next = NULL;
+	    
+	    //currfile = readdir(dirstream);
 	} 
-		 
-    }   	 
+	
+	//printf("directory if done \n");
+	
+	//now we need to remove fname from filepath
+
+	char *slashpos = NULL;
+	slashpos = strrchr(filepath,',');
+
+	    //printf("editing path name %s \n", filepath);
+	    //printf("filepath address: %s   slashpos address: %s", filepath, slashpos);
+	    //printf("slashpos created \n");
+	if( slashpos == NULL ){
+		
+	    if(root_run_dir[0] != '.'){
+
+	        strcpy(filepath, root_run_dir);
+
+	    } else {
+
+		memset(filepath, 0, 256*sizeof(char));
+	
+	    }
+	    dirdepth++;
+
+        } else {
+	    
+    	    int index = (long)((long)slashpos - (long)filepath + 1);
+	    printf("index created: %d \n", index);
+	    memset(filepath+index, 0, strlen(filepath)-index);
+	    
+	}
+	//printf("path name changed back to: %s : \n", filepath);
+
+    }
+
     return root;
 
 }
@@ -234,14 +309,24 @@ void print_spaces(int x) {
 void print_ftree_rec(struct TreeNode *root, int depth) {
     //printf("beginning to print tree \n");
     //if file, print.
-    if(root->contents == NULL){
+    if(root == NULL){
+
+	printf("null \n");
+
+    } else if(root->contents == NULL && root->hash != NULL){ // if file
 	 print_spaces(depth * 2);
          printf("%s (%o) \n", root->fname, root->permissions);
+	 //show_hash(root->hash, 8);
+
     } else if (root->contents != NULL && root->hash == NULL){ //if directory, go throught contents and recursively call each
 	print_spaces(depth * 2);
         printf("=====  %s (%o) ===== \n",  root->fname, root->permissions);
-	struct TreeNode *currnode;
+	struct TreeNode *currnode = NULL;
+	
+	//printf("printing %s...", currnode->fname);
+
 	currnode = root->contents;
+	
 	while(currnode != NULL){
 		print_ftree_rec(currnode, depth + 1);
 		currnode = currnode->next;
