@@ -136,7 +136,7 @@ struct TreeNode *generate_ftree(const char *fname) {
     }
 
 
-    printf("file: %s    path: $%s$    file path: %s \n", fname, filepath, file_open_path);
+    //printf("file: %s    path: $%s$    file path: %s \n", fname, filepath, file_open_path);
    
     //printf("%s, %s \n", filepath, fname);
 
@@ -225,9 +225,13 @@ struct TreeNode *generate_ftree(const char *fname) {
 	    currnode = generate_ftree(currfile->d_name);
 	    //printf("first dir recusive call complete");
 	    root->contents = currnode;
-	    //printf("contents of %s is %s \n", root->fname, currfile->d_name);
+	    printf("contents of %s is %s \n", root->fname, currfile->d_name);
 	    lastnode = currnode;
 
+	} else {
+
+	    root->contents = NULL;
+	
 	}
 
 	while ( currfile != NULL ){
@@ -284,7 +288,7 @@ struct TreeNode *generate_ftree(const char *fname) {
         } else {
 	    
     	    int index = (long)((long)slashpos - (long)filepath + 1);
-	    printf("index created: %d \n", index);
+	    //printf("index created: %d \n", index);
 	    memset(filepath+index, 0, strlen(filepath)-index);
 	    
 	}
@@ -318,20 +322,24 @@ void print_ftree_rec(struct TreeNode *root, int depth) {
          printf("%s (%o) \n", root->fname, root->permissions);
 	 //show_hash(root->hash, 8);
 
-    } else if (root->contents != NULL && root->hash == NULL){ //if directory, go throught contents and recursively call each
+    } else if (root->hash == NULL){ //if directory, go throught contents and recursively call each
 	print_spaces(depth * 2);
         printf("=====  %s (%o) ===== \n",  root->fname, root->permissions);
-	struct TreeNode *currnode = NULL;
 	
-	//printf("printing %s...", currnode->fname);
+	if(root->contents != NULL){
+	    struct TreeNode *currnode = NULL;
+	
+	    //printf("printing %s...", currnode->fname);
 
-	currnode = root->contents;
+	    currnode = root->contents;
 	
-	while(currnode != NULL){
-		print_ftree_rec(currnode, depth + 1);
-		if(currnode->next != NULL){
+	    while(currnode != NULL){
+		    print_ftree_rec(currnode, depth + 1);
+		    
 		    currnode = currnode->next;
-		}
+		    
+	    }
+
 	}
 	
     } else {
