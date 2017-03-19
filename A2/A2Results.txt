@@ -1,0 +1,510 @@
+=======================================================================================================================================================
+StudentID: ruther60
+
+===== Testing compilation and error messages =====
+Test 1: print_ftree with non-existing file should print an error message to the standard error:
+part1 T1: failed
+
+Test 2: Checking for incorrect include statements:
+part1 T2: passed
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ stat Makefile
+  File: `Makefile'
+  Size: 580       	Blocks: 0          IO Block: 262144 regular file
+Device: 20h/32d	Inode: 1610906225  Links: 1
+Access: (0644/-rw-r--r--)  Uid: (17489038/maneasso)   Gid: (656172/cscb09w17i)
+Access: 2017-03-18 19:08:12.985914000 -0400
+Modify: 2017-03-18 19:08:12.986409000 -0400
+Change: 2017-03-18 19:08:13.281386000 -0400
+ Birth: -
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ stat special_fifo_file
+  File: `special_fifo_file'
+  Size: 0         	Blocks: 0          IO Block: 262144 fifo
+Device: 20h/32d	Inode: 1610904920  Links: 1
+Access: (0644/prw-r--r--)  Uid: (17489038/maneasso)   Gid: (656172/cscb09w17i)
+Access: 2017-03-18 19:08:13.633981000 -0400
+Modify: 2017-03-18 19:08:13.633981000 -0400
+Change: 2017-03-18 19:08:13.633981000 -0400
+ Birth: -
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali EmptyDirectory
+EmptyDirectory:
+total 0
+1610904831 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 18 19:08 .
+1610906871 drwxr-sr-x 1 maneasso cscb09w17i 1280 Mar 18 19:08 ..
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali DirWithOneFile
+DirWithOneFile:
+total 0
+1610904919 drwxr-sr-x 1 maneasso cscb09w17i   80 Mar 18 19:08 .
+1610906871 drwxr-sr-x 1 maneasso cscb09w17i 1280 Mar 18 19:08 ..
+1610904918 -rw-r--r-- 1 maneasso cscb09w17i  512 Mar 18 19:08 file1
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali DirWithFiles
+DirWithFiles:
+total 0
+1610904065 drwxr-sr-x 1 maneasso cscb09w17i  128 Mar 18 19:08 .
+1610906871 drwxr-sr-x 1 maneasso cscb09w17i 1280 Mar 18 19:08 ..
+1610904066 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610904067 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file2
+1610904069 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file3
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali DirWithDotFile
+DirWithDotFile:
+total 0
+1610904070 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 18 19:08 .
+1610906871 drwxr-sr-x 1 maneasso cscb09w17i 1280 Mar 18 19:08 ..
+1610906570 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610906571 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 .file1
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali DirWithEmptySubDir
+DirWithEmptySubDir:
+total 0
+1610906572 drwxr-sr-x 1 maneasso cscb09w17i  156 Mar 18 19:08 .
+1610906871 drwxr-sr-x 1 maneasso cscb09w17i 1280 Mar 18 19:08 ..
+1610906566 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 18 19:08 EmptySubDir
+1610906573 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610906567 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file2
+1610906574 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file3
+
+DirWithEmptySubDir/EmptySubDir:
+total 0
+1610906566 drwxr-sr-x 1 maneasso cscb09w17i   0 Mar 18 19:08 .
+1610906572 drwxr-sr-x 1 maneasso cscb09w17i 156 Mar 18 19:08 ..
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali DirWithSubDir
+DirWithSubDir:
+total 0
+1610906563 drwxr-sr-x 1 maneasso cscb09w17i   80 Mar 18 19:08 .
+1610906871 drwxr-sr-x 1 maneasso cscb09w17i 1280 Mar 18 19:08 ..
+1610906549 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 18 19:08 SubDir
+
+DirWithSubDir/SubDir:
+total 0
+1610906549 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 18 19:08 .
+1610906563 drwxr-sr-x 1 maneasso cscb09w17i   80 Mar 18 19:08 ..
+1610906552 -rw-r--r-- 1 maneasso cscb09w17i 4096 Mar 18 19:08 file1
+1610906555 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file2
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali DirWithHardLink
+DirWithHardLink:
+total 0
+1610906818 drwxr-sr-x 1 maneasso cscb09w17i  156 Mar 18 19:08 .
+1610906871 drwxr-sr-x 1 maneasso cscb09w17i 1280 Mar 18 19:08 ..
+1610906072 -rw-r--r-- 2 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610906071 -rw-r--r-- 1 maneasso cscb09w17i  512 Mar 18 19:08 file2
+1610906070 -rw-r--r-- 1 maneasso cscb09w17i 4096 Mar 18 19:08 file3
+1610906072 -rw-r--r-- 2 maneasso cscb09w17i 1024 Mar 18 19:08 linkToFile1
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali DirWithHardLinks
+DirWithHardLinks:
+total 0
+1610906161 drwxr-sr-x 1 maneasso cscb09w17i  184 Mar 18 19:08 .
+1610906871 drwxr-sr-x 1 maneasso cscb09w17i 1280 Mar 18 19:08 ..
+1610906747 -rw-r--r-- 2 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610906746 -rw-r--r-- 2 maneasso cscb09w17i  512 Mar 18 19:08 file2
+1610906403 -rw-r--r-- 2 maneasso cscb09w17i 4096 Mar 18 19:08 file3
+1610906403 -rw-r--r-- 2 maneasso cscb09w17i 4096 Mar 18 19:08 linkToFile3
+1610902387 drwxr-sr-x 1 maneasso cscb09w17i  152 Mar 18 19:08 SubDirectory
+
+DirWithHardLinks/SubDirectory:
+total 0
+1610902387 drwxr-sr-x 1 maneasso cscb09w17i  152 Mar 18 19:08 .
+1610906161 drwxr-sr-x 1 maneasso cscb09w17i  184 Mar 18 19:08 ..
+1610905074 -rw-r--r-- 1 maneasso cscb09w17i 4096 Mar 18 19:08 file3
+1610906747 -rw-r--r-- 2 maneasso cscb09w17i 1024 Mar 18 19:08 linkToParentFile1
+1610906746 -rw-r--r-- 2 maneasso cscb09w17i  512 Mar 18 19:08 linkToParentFile2
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali DirWithSymbolicLink
+DirWithSymbolicLink:
+total 0
+1610905695 drwxr-sr-x 1 maneasso cscb09w17i  156 Mar 18 19:08 .
+1610906871 drwxr-sr-x 1 maneasso cscb09w17i 1280 Mar 18 19:08 ..
+1610906823 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610906822 -rw-rw-rw- 1 maneasso cscb09w17i  512 Mar 18 19:08 file2
+1610906820 -r--r--r-- 1 maneasso cscb09w17i 4096 Mar 18 19:08 file3
+1610906819 lrwxrwxrwx 1 maneasso cmsusers     22 Mar 18 19:08 symbolicLink -> ../DirWithSymbolicLink
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali TestDirectory
+TestDirectory:
+total 0
+1610906556 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 18 19:08 .
+1610906871 drwxr-sr-x 1 maneasso cscb09w17i 1280 Mar 18 19:08 ..
+1610906352 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 18 19:08 EmptyDirectory
+1610906557 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610906541 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file2
+1610906558 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file3
+1610906191 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 18 19:08 SubDirectory
+
+TestDirectory/EmptyDirectory:
+total 0
+1610906352 drwxr-sr-x 1 maneasso cscb09w17i   0 Mar 18 19:08 .
+1610906556 drwxr-sr-x 1 maneasso cscb09w17i 188 Mar 18 19:08 ..
+
+TestDirectory/SubDirectory:
+total 0
+1610906191 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 18 19:08 .
+1610906556 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 18 19:08 ..
+1610906192 -rw-r--r-- 1 maneasso cscb09w17i  512 Mar 18 19:08 file1
+1610906189 -rw-r--r-- 1 maneasso cscb09w17i 4096 Mar 18 19:08 file2
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali TestDirectory2
+TestDirectory2:
+total 0
+1610905693 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 18 19:08 .
+1610906871 drwxr-sr-x 1 maneasso cscb09w17i 1280 Mar 18 19:08 ..
+1610905691 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 18 19:08 EmptyDirectory
+1610905692 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610905701 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file2
+1610905697 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file3
+1610905698 drwxr-sr-x 1 maneasso cscb09w17i  168 Mar 18 19:08 SubDirectory
+
+TestDirectory2/EmptyDirectory:
+total 0
+1610905691 drwxr-sr-x 1 maneasso cscb09w17i   0 Mar 18 19:08 .
+1610905693 drwxr-sr-x 1 maneasso cscb09w17i 188 Mar 18 19:08 ..
+
+TestDirectory2/SubDirectory:
+total 0
+1610905698 drwxr-sr-x 1 maneasso cscb09w17i  168 Mar 18 19:08 .
+1610905693 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 18 19:08 ..
+1610905699 -rw-r--r-- 1 maneasso cscb09w17i  512 Mar 18 19:08 file1
+1610905700 -rw-r--r-- 1 maneasso cscb09w17i 4096 Mar 18 19:08 file2
+1610905702 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 18 19:08 TestDirectory
+1610905710 drwxr-sr-x 1 maneasso cscb09w17i  160 Mar 18 19:08 TestSubDirectory
+
+TestDirectory2/SubDirectory/TestDirectory:
+total 0
+1610905702 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 18 19:08 .
+1610905698 drwxr-sr-x 1 maneasso cscb09w17i  168 Mar 18 19:08 ..
+1610905704 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 18 19:08 EmptyDirectory
+1610905703 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610905709 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file2
+1610905705 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file3
+1610905706 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 18 19:08 SubDirectory
+
+TestDirectory2/SubDirectory/TestDirectory/EmptyDirectory:
+total 0
+1610905704 drwxr-sr-x 1 maneasso cscb09w17i   0 Mar 18 19:08 .
+1610905702 drwxr-sr-x 1 maneasso cscb09w17i 188 Mar 18 19:08 ..
+
+TestDirectory2/SubDirectory/TestDirectory/SubDirectory:
+total 0
+1610905706 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 18 19:08 .
+1610905702 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 18 19:08 ..
+1610905707 -rw-r--r-- 1 maneasso cscb09w17i  512 Mar 18 19:08 file1
+1610905708 -rw-r--r-- 1 maneasso cscb09w17i 4096 Mar 18 19:08 file2
+
+TestDirectory2/SubDirectory/TestSubDirectory:
+total 0
+1610905710 drwxr-sr-x 1 maneasso cscb09w17i  160 Mar 18 19:08 .
+1610905698 drwxr-sr-x 1 maneasso cscb09w17i  168 Mar 18 19:08 ..
+1610905711 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610905713 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file2
+1610905712 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file3
+1610905714 drwxr-sr-x 1 maneasso cscb09w17i  128 Mar 18 19:08 SubSubDirectory
+
+TestDirectory2/SubDirectory/TestSubDirectory/SubSubDirectory:
+total 0
+1610905714 drwxr-sr-x 1 maneasso cscb09w17i  128 Mar 18 19:08 .
+1610905710 drwxr-sr-x 1 maneasso cscb09w17i  160 Mar 18 19:08 ..
+1610905715 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610905696 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file2
+1610905716 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file3
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali FullTestDirectory
+FullTestDirectory:
+total 0
+1610906499 drwxr-sr-x 1 maneasso cscb09w17i  216 Mar 18 19:08 .
+1610906871 drwxr-sr-x 1 maneasso cscb09w17i 1280 Mar 18 19:08 ..
+1610905763 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 18 19:08 EmptyDirectory
+1610906501 -rwxr-xr-x 2 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610907016 -rw-r--r-- 2 maneasso cscb09w17i 1024 Mar 18 19:08 file2
+1610905762 -r--r--r-- 2 maneasso cscb09w17i 1024 Mar 18 19:08 file3
+1610905762 -r--r--r-- 2 maneasso cscb09w17i 1024 Mar 18 19:08 linkToFile3
+1610906953 drwxr-sr-x 1 maneasso cscb09w17i  240 Mar 18 19:08 SubDirectory
+
+FullTestDirectory/EmptyDirectory:
+total 0
+1610905763 drwxr-sr-x 1 maneasso cscb09w17i   0 Mar 18 19:08 .
+1610906499 drwxr-sr-x 1 maneasso cscb09w17i 216 Mar 18 19:08 ..
+
+FullTestDirectory/SubDirectory:
+total 0
+1610906953 drwxr-sr-x 1 maneasso cscb09w17i  240 Mar 18 19:08 .
+1610906499 drwxr-sr-x 1 maneasso cscb09w17i  216 Mar 18 19:08 ..
+1610906956 -rw-r--r-- 2 maneasso cscb09w17i  512 Mar 18 19:08 file1
+1610906952 -rw-r--r-- 2 maneasso cscb09w17i 4096 Mar 18 19:08 file2
+1610906501 -rwxr-xr-x 2 maneasso cscb09w17i 1024 Mar 18 19:08 linkToParentFile1
+1610907016 -rw-r--r-- 2 maneasso cscb09w17i 1024 Mar 18 19:08 linkToParentFile2
+1610907142 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 18 19:08 TestDirectory
+1610907025 drwxr-sr-x 1 maneasso cscb09w17i  232 Mar 18 19:08 TestSubDirectory
+
+FullTestDirectory/SubDirectory/TestDirectory:
+total 0
+1610907142 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 18 19:08 .
+1610906953 drwxr-sr-x 1 maneasso cscb09w17i  240 Mar 18 19:08 ..
+1610907141 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 18 19:08 EmptyDirectory
+1610907143 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610907026 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file2
+1610907140 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file3
+1610907029 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 18 19:08 SubDirectory
+
+FullTestDirectory/SubDirectory/TestDirectory/EmptyDirectory:
+total 0
+1610907141 drwxr-sr-x 1 maneasso cscb09w17i   0 Mar 18 19:08 .
+1610907142 drwxr-sr-x 1 maneasso cscb09w17i 188 Mar 18 19:08 ..
+
+FullTestDirectory/SubDirectory/TestDirectory/SubDirectory:
+total 0
+1610907029 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 18 19:08 .
+1610907142 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 18 19:08 ..
+1610907028 -rw-r--r-- 1 maneasso cscb09w17i  512 Mar 18 19:08 file1
+1610907027 -rw-r--r-- 1 maneasso cscb09w17i 4096 Mar 18 19:08 file2
+
+FullTestDirectory/SubDirectory/TestSubDirectory:
+total 0
+1610907025 drwxr-sr-x 1 maneasso cscb09w17i  232 Mar 18 19:08 .
+1610906953 drwxr-sr-x 1 maneasso cscb09w17i  240 Mar 18 19:08 ..
+1610907024 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610907017 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file2
+1610907019 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file3
+1610906956 -rw-r--r-- 2 maneasso cscb09w17i  512 Mar 18 19:08 linkToParentFile1
+1610906952 -rw-r--r-- 2 maneasso cscb09w17i 4096 Mar 18 19:08 linkToParentFile2
+1610907023 drwxr-sr-x 1 maneasso cscb09w17i  200 Mar 18 19:08 SubSubDirectory
+
+FullTestDirectory/SubDirectory/TestSubDirectory/SubSubDirectory:
+total 0
+1610907023 drwxr-sr-x 1 maneasso cscb09w17i  200 Mar 18 19:08 .
+1610907025 drwxr-sr-x 1 maneasso cscb09w17i  232 Mar 18 19:08 ..
+1610907022 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 18 19:08 file1
+1610906222 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file2
+1610907021 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 18 19:08 file3
+1610907015 lrwxrwxrwx 1 maneasso cmsusers      3 Mar 18 19:08 symlinkToParent -> ../
+1610907014 lrwxrwxrwx 1 maneasso cmsusers      6 Mar 18 19:08 symlinkToParentsParent -> ../../
+
+===== Testing tree generation =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing tree printing =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (filenames) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (permissions) =====
+[ERROR]: The corresponding test file could not be compiled using the submitted sources files ...
+
+===== Testing data structure correctness (hash values) =====
+ERROR: The corresponding test file could not be compiled using the submitted sources files ...
