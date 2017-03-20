@@ -1,0 +1,211 @@
+=======================================================================================================================================================
+StudentID: ruther60
+
+===== Testing compilation and error messages =====
+Test 1: print_ftree with non-existing file should print an error message to the standard error:
+Invoking the following command:
+./print_ftree file_not_exists > /dev/null 2> stderr.log
+part1 T1: failed
+
+Test 2: Checking for incorrect include statements:
+part1 T2: passed
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali EmptyDirectory
+EmptyDirectory:
+total 0
+1610909821 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 20 10:45 .
+1610913183 drwxr-sr-x 1 maneasso cscb09w17i 1480 Mar 20 10:45 ..
+
+===== Testing tree generation =====
+The printed outputs match!
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali DirWithEmptySubDir
+DirWithEmptySubDir:
+total 0
+1610905057 drwxr-sr-x 1 maneasso cscb09w17i  156 Mar 20 10:45 .
+1610913183 drwxr-sr-x 1 maneasso cscb09w17i 1552 Mar 20 10:45 ..
+1610915737 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 20 10:45 EmptySubDir
+1610909124 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 20 10:45 file1
+1610915736 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file2
+1610904092 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file3
+
+DirWithEmptySubDir/EmptySubDir:
+total 0
+1610915737 drwxr-sr-x 1 maneasso cscb09w17i   0 Mar 20 10:45 .
+1610905057 drwxr-sr-x 1 maneasso cscb09w17i 156 Mar 20 10:45 ..
+
+===== Testing tree generation =====
+The printed outputs match!
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali TestDirectory
+TestDirectory:
+total 0
+1610908001 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 20 10:45 .
+1610913183 drwxr-sr-x 1 maneasso cscb09w17i 1552 Mar 20 10:45 ..
+1610907055 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 20 10:45 EmptyDirectory
+1610913256 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 20 10:45 file1
+1610913255 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file2
+1610913264 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file3
+1610907058 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 20 10:45 SubDirectory
+
+TestDirectory/EmptyDirectory:
+total 0
+1610907055 drwxr-sr-x 1 maneasso cscb09w17i   0 Mar 20 10:45 .
+1610908001 drwxr-sr-x 1 maneasso cscb09w17i 188 Mar 20 10:45 ..
+
+TestDirectory/SubDirectory:
+total 0
+1610907058 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 20 10:45 .
+1610908001 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 20 10:45 ..
+1610907038 -rw-r--r-- 1 maneasso cscb09w17i  512 Mar 20 10:45 file1
+1610907037 -rw-r--r-- 1 maneasso cscb09w17i 4096 Mar 20 10:45 file2
+
+===== Testing tree generation =====
+The printed outputs match!
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali TestDirectory2
+TestDirectory2:
+total 0
+1610917024 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 20 10:45 .
+1610913183 drwxr-sr-x 1 maneasso cscb09w17i 1552 Mar 20 10:45 ..
+1610903290 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 20 10:45 EmptyDirectory
+1610917023 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 20 10:45 file1
+1610914885 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file2
+1610903291 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file3
+1610916327 drwxr-sr-x 1 maneasso cscb09w17i  168 Mar 20 10:45 SubDirectory
+
+TestDirectory2/EmptyDirectory:
+total 0
+1610903290 drwxr-sr-x 1 maneasso cscb09w17i   0 Mar 20 10:45 .
+1610917024 drwxr-sr-x 1 maneasso cscb09w17i 188 Mar 20 10:45 ..
+
+TestDirectory2/SubDirectory:
+total 0
+1610916327 drwxr-sr-x 1 maneasso cscb09w17i  168 Mar 20 10:45 .
+1610917024 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 20 10:45 ..
+1610909391 -rw-r--r-- 1 maneasso cscb09w17i  512 Mar 20 10:45 file1
+1610914884 -rw-r--r-- 1 maneasso cscb09w17i 4096 Mar 20 10:45 file2
+1610914886 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 20 10:45 TestDirectory
+1610910010 drwxr-sr-x 1 maneasso cscb09w17i  160 Mar 20 10:45 TestSubDirectory
+
+TestDirectory2/SubDirectory/TestDirectory:
+total 0
+1610914886 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 20 10:45 .
+1610916327 drwxr-sr-x 1 maneasso cscb09w17i  168 Mar 20 10:45 ..
+1610910023 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 20 10:45 EmptyDirectory
+1610910030 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 20 10:45 file1
+1610910012 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file2
+1610910022 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file3
+1610910019 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 20 10:45 SubDirectory
+
+TestDirectory2/SubDirectory/TestDirectory/EmptyDirectory:
+total 0
+1610910023 drwxr-sr-x 1 maneasso cscb09w17i   0 Mar 20 10:45 .
+1610914886 drwxr-sr-x 1 maneasso cscb09w17i 188 Mar 20 10:45 ..
+
+TestDirectory2/SubDirectory/TestDirectory/SubDirectory:
+total 0
+1610910019 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 20 10:45 .
+1610914886 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 20 10:45 ..
+1610910014 -rw-r--r-- 1 maneasso cscb09w17i  512 Mar 20 10:45 file1
+1610910013 -rw-r--r-- 1 maneasso cscb09w17i 4096 Mar 20 10:45 file2
+
+TestDirectory2/SubDirectory/TestSubDirectory:
+total 0
+1610910010 drwxr-sr-x 1 maneasso cscb09w17i  160 Mar 20 10:45 .
+1610916327 drwxr-sr-x 1 maneasso cscb09w17i  168 Mar 20 10:45 ..
+1610916070 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 20 10:45 file1
+1610916214 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file2
+1610916239 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file3
+1610903778 drwxr-sr-x 1 maneasso cscb09w17i  128 Mar 20 10:45 SubSubDirectory
+
+TestDirectory2/SubDirectory/TestSubDirectory/SubSubDirectory:
+total 0
+1610903778 drwxr-sr-x 1 maneasso cscb09w17i  128 Mar 20 10:45 .
+1610910010 drwxr-sr-x 1 maneasso cscb09w17i  160 Mar 20 10:45 ..
+1610916204 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 20 10:45 file1
+1610914282 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file2
+1610914283 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file3
+
+===== Testing tree generation =====
+The printed outputs match!
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+$ ls -Rali FullTestDirectory
+FullTestDirectory:
+total 0
+1610905719 drwxr-sr-x 1 maneasso cscb09w17i  216 Mar 20 10:45 .
+1610913183 drwxr-sr-x 1 maneasso cscb09w17i 1552 Mar 20 10:45 ..
+1610908669 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 20 10:45 EmptyDirectory
+1610905717 -rwxr-xr-x 2 maneasso cscb09w17i 1024 Mar 20 10:45 file1
+1610915786 -rw-r--r-- 2 maneasso cscb09w17i 1024 Mar 20 10:45 file2
+1610915776 -r--r--r-- 2 maneasso cscb09w17i 1024 Mar 20 10:45 file3
+1610915776 -r--r--r-- 2 maneasso cscb09w17i 1024 Mar 20 10:45 linkToFile3
+1610915778 drwxr-sr-x 1 maneasso cscb09w17i  240 Mar 20 10:45 SubDirectory
+
+FullTestDirectory/EmptyDirectory:
+total 0
+1610908669 drwxr-sr-x 1 maneasso cscb09w17i   0 Mar 20 10:45 .
+1610905719 drwxr-sr-x 1 maneasso cscb09w17i 216 Mar 20 10:45 ..
+
+FullTestDirectory/SubDirectory:
+total 0
+1610915778 drwxr-sr-x 1 maneasso cscb09w17i  240 Mar 20 10:45 .
+1610905719 drwxr-sr-x 1 maneasso cscb09w17i  216 Mar 20 10:45 ..
+1610904040 -rw-r--r-- 2 maneasso cscb09w17i  512 Mar 20 10:45 file1
+1610904046 -rw-r--r-- 2 maneasso cscb09w17i 4096 Mar 20 10:45 file2
+1610905717 -rwxr-xr-x 2 maneasso cscb09w17i 1024 Mar 20 10:45 linkToParentFile1
+1610915786 -rw-r--r-- 2 maneasso cscb09w17i 1024 Mar 20 10:45 linkToParentFile2
+1610904038 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 20 10:45 TestDirectory
+1610916937 drwxr-sr-x 1 maneasso cscb09w17i  232 Mar 20 10:45 TestSubDirectory
+
+FullTestDirectory/SubDirectory/TestDirectory:
+total 0
+1610904038 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 20 10:45 .
+1610915778 drwxr-sr-x 1 maneasso cscb09w17i  240 Mar 20 10:45 ..
+1610904036 drwxr-sr-x 1 maneasso cscb09w17i    0 Mar 20 10:45 EmptyDirectory
+1610904037 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 20 10:45 file1
+1610916936 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file2
+1610904035 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file3
+1610904034 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 20 10:45 SubDirectory
+
+FullTestDirectory/SubDirectory/TestDirectory/EmptyDirectory:
+total 0
+1610904036 drwxr-sr-x 1 maneasso cscb09w17i   0 Mar 20 10:45 .
+1610904038 drwxr-sr-x 1 maneasso cscb09w17i 188 Mar 20 10:45 ..
+
+FullTestDirectory/SubDirectory/TestDirectory/SubDirectory:
+total 0
+1610904034 drwxr-sr-x 1 maneasso cscb09w17i  104 Mar 20 10:45 .
+1610904038 drwxr-sr-x 1 maneasso cscb09w17i  188 Mar 20 10:45 ..
+1610904028 -rw-r--r-- 1 maneasso cscb09w17i  512 Mar 20 10:45 file1
+1610904027 -rw-r--r-- 1 maneasso cscb09w17i 4096 Mar 20 10:45 file2
+
+FullTestDirectory/SubDirectory/TestSubDirectory:
+total 0
+1610916937 drwxr-sr-x 1 maneasso cscb09w17i  232 Mar 20 10:45 .
+1610915778 drwxr-sr-x 1 maneasso cscb09w17i  240 Mar 20 10:45 ..
+1610905082 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 20 10:45 file1
+1610916156 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file2
+1610915823 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file3
+1610904040 -rw-r--r-- 2 maneasso cscb09w17i  512 Mar 20 10:45 linkToParentFile1
+1610904046 -rw-r--r-- 2 maneasso cscb09w17i 4096 Mar 20 10:45 linkToParentFile2
+1610905081 drwxr-sr-x 1 maneasso cscb09w17i  200 Mar 20 10:45 SubSubDirectory
+
+FullTestDirectory/SubDirectory/TestSubDirectory/SubSubDirectory:
+total 0
+1610905081 drwxr-sr-x 1 maneasso cscb09w17i  200 Mar 20 10:45 .
+1610916937 drwxr-sr-x 1 maneasso cscb09w17i  232 Mar 20 10:45 ..
+1610916120 -rwxr-xr-x 1 maneasso cscb09w17i 1024 Mar 20 10:45 file1
+1610915821 -rw-r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file2
+1610916126 -r--r--r-- 1 maneasso cscb09w17i 1024 Mar 20 10:45 file3
+1610915791 lrwxrwxrwx 1 maneasso cmsusers      3 Mar 20 10:45 symlinkToParent -> ../
+1610915793 lrwxrwxrwx 1 maneasso cmsusers      6 Mar 20 10:45 symlinkToParentsParent -> ../../
+
+===== Testing tree generation =====
+The printed outputs match!
